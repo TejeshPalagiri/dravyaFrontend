@@ -1,0 +1,33 @@
+.recipe-image > img{
+    width: 70%;
+    height: auto;
+}
+
+.flex-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.description {
+    height: 50%;
+    overflow: hidden;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+.actions > button {
+    width: 30%;
+}
+
+.no-data-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.no-data-container > img {
+    width: 25%;
+}

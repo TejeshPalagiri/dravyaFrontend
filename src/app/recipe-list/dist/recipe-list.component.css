@@ -1,0 +1,16 @@
+.recipe-image > img {
+  width: 70%;
+  height: auto;
+  border: 2px solid red;
+}
+
+.flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.description {
+  height: 50%;
+  overflow: scroll;
+}

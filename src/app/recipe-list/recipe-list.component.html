@@ -1,0 +1,167 @@
+<div class="container mt-5" *ngIf="!showAddPopup">
+  <div class="row">
+    <div class="col-3">
+      <input
+        type="text"
+        placeholder="Search recipe with name"
+        class="form-control d-inline"
+        [(ngModel)]="filters.search"
+        (keyup.enter)="filterDetails()"
+      />
+    </div>
+    <div class="col-3">
+      <select
+        id="category"
+        class="form-select mb-3"
+        aria-label="Default select example"
+        [(ngModel)]="filters.sortOrder"
+        title="Sort By Price"
+        (change)="filterDetails()"     
+      >
+        <option value="1">Ascending</option>
+        <option value="-1">Descending</option>
+      </select>
+    </div>
+    <div class="col-3">
+      <select
+        id="category"
+        class="form-select mb-3"
+        aria-label="Default select example"
+        [(ngModel)]="filters.category"
+        title="Category"
+        (change)="filterDetails()"     
+
+      >
+        <option value="Appetizers">Appetizers</option>
+        <option value="Soups">Soups</option>
+        <option value="Soups">Vegetables</option>
+        <option value="Main Dishes">Main Dishes</option>
+        <option value="Breads">Breads</option>
+        <option value="Desserts">Desserts</option>
+      </select>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-primary" style="float: right" (click)="showAddPopup = !showAddPopup; $event.preventDefault()">
+        Add new Recipe
+      </button>
+      <button class="btn btn-primary"  (click)="clearFilters(); $event.preventDefault()">
+        Clear filters
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!showAddPopup">
+    <div
+      class="container component-height m-5"
+      *ngIf="!loading && recipeList.length != 0"
+    >
+      <div class="row custom-height mt-4 border" *ngFor="let recipe of recipeList">
+        <div class="col-5 recipe-image w-50 flex-box">
+          <img [src]="recipe.image" alt="" srcset="" />
+        </div>
+        <div class="col-7 w-50">
+          <h2>{{ recipe.name }}</h2>
+          <h6>{{ recipe.category }}</h6>
+          <div class="description">
+            <p>{{ recipe.description }}</p>
+          </div>
+          <div class="actions w-100">
+            <button class="btn btn-info w-30" disabled>
+              {{ recipe.price }} &#8377;
+            </button>
+            <button class="btn btn-danger w-30" (click)="deleteRecipe(recipe._id, $event)">Delete</button>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div
+      class="container-fluid m-5 component-height no-data-container"
+      *ngIf="!loading && recipeList.length == 0"
+    >
+      <img src="../../assets/nodata.svg" alt="no-data" />
+      <h2 class="mt-1">No recipies found</h2>
+    </div>
+    <div class="container component-height mt-5" *ngIf="loading">
+      <div class="row">
+        <div class="col-12">
+          <h1>Loading....</h1>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container component-height m-5" *ngIf="showAddPopup">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="recipeForm" (submit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name of recipe</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name of recipe"
+            formControlName="name"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="image-link" class="form-label">Image link</label>
+          <input
+            type="text"
+            class="form-control"
+            id="image-link"
+            placeholder="Image link of recipe"
+            formControlName="image"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+
+          <select
+            id="category"
+            class="form-select mb-3"
+            aria-label="Default select example"
+            formControlName="category"
+          >
+            <option value="Appetizers">Appetizers</option>
+            <option value="Soups">Soups</option>
+            <option value="Soups">Vegetables</option>
+            <option value="Main Dishes">Main Dishes</option>
+            <option value="Breads">Breads</option>
+            <option value="Desserts">Desserts</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            placeholder="Price of recipe"
+            formControlName="price"
+          />
+        </div>
+        <div class="mb-3">
+          <textarea
+            class="form-control"
+            id="requestBody"
+            rows="3"
+            formControlName="description"
+            placeholder="Description of recipe"
+          ></textarea>
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary">Add Recipe</button>
+          <button type="submit" class="btn btn-danger" (click)="showAddPopup = !showAddPopup; $event.preventDefault()">Close</button>
+        </div>
+        <div class="alert alert-danger mt-4" *ngIf="addError" role="alert">
+            {{ addError }}
+        </div>
+        <div class="alert alert-success mt-4" *ngIf="addResponse" role="alert">
+            {{ addResponse }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
