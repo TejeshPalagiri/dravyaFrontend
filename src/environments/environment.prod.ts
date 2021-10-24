@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: "https://dravya.herokuapp.com//api/"
+  api: "https://dravya.herokuapp.com/api/"
 
 };
