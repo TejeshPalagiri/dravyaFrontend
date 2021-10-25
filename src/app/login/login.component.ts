@@ -30,8 +30,11 @@ export class LoginComponent implements OnInit {
   }
 
   fillDemoUserDetials(event) {
-    this.loginForm.value.email = "exampleuser@gmail.com"
-    this.loginForm.value.password = "359@Tejesh"
+    let user = {
+      email: "exampleuser@gmail.com",
+      password: "359@Tejesh"
+    }
+    this.loginForm.setValue(user)
   }
 
   onSubmit() {
