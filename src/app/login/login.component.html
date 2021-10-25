@@ -26,8 +26,8 @@
             formControlName="password"
           />
         </div>
-        
-        <button type="submit" class="btn btn-primary mt-4">Login</button>
+        <small class="d-block mt-2" (click)="fillDemoUserDetials($event)"><u style="cursor: pointer;">Click here</u> for demo user credentials</small>
+        <button type="submit" class="btn btn-primary mt-2">Login</button>
         <div class="alert alert-danger mt-4" *ngIf="error" role="alert">
           {{ error }}
         </div>

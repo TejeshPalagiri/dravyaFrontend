@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fillDemoUserDetials(event) {
+    this.loginForm.value.email = "exampleuser@gmail.com"
+    this.loginForm.value.password = "359@Tejesh"
+  }
+
   onSubmit() {
     const endPoint = environment.api + "user/login"
     if(this.loginForm.valid) {
