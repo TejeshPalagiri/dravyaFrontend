@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
         console.log(response)
         if(response['status'] == 200) {
           localStorage.setItem("access-token", response['result']['access-token'])
-          this.router.navigate(['/list'])
+          // this.router.navigate(['/list'])
+          this.router.navigate(['/home'])
         } else {
           this.error = response['msg']
         }

@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedIn() {
-    console.log("islogg")
     if(localStorage.getItem('access-token') && localStorage.getItem('access-token') != undefined) {
       return true
     } else {

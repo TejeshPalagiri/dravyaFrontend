@@ -1,0 +1,97 @@
+<mat-tab-group (selectedTabChange)="ngOnInit()" >
+    <mat-tab label="Create Team"> 
+        <!-- Content 1 -->
+        <div class="col-12 main-container">
+            <form [formGroup]="teamForm" (submit)="createTeam()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Team Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="name">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="exampleInputPassword1">Team Budget</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" formControlName="maxBudget">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Add Team</button>
+                <div class="alert alert-danger mt-4" *ngIf="error" role="alert">
+                    {{ error }}
+                </div>
+            </form>
+        </div>
+    </mat-tab>
+    <mat-tab label="Create Player" (click)="getAllTeams()"> 
+        <div class="col-12 main-container">
+            <form [formGroup]="playerForm" (submit)="createPlayer()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Player Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="name">
+                </div>
+                <div class="form-group mt-2">
+                    <label for="exampleInputEmail1">Select Team</label>
+                    <select
+                        id="category"
+                        class="form-select mb-3"
+                        aria-label="Default select example"
+                        title="Category"
+                        formControlName="team"
+                    >   
+                      <option *ngFor="let team of allTeams" value="{{team.name}}">{{ team.name }}</option>
+                      <!-- <option value="Soups">Soups</option>
+                      <option value="Soups">Vegetables</option>
+                      <option value="Main Dishes">Main Dishes</option>
+                      <option value="Breads">Breads</option>
+                      <option value="Desserts">Desserts</option> -->
+                    </select>
+                  </div>
+                <div class="form-group mt-2">
+                    <label for="exampleInputPassword1">Bidding Budget</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" formControlName="biddingBudget">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Add Player</button>
+                <div class="alert alert-danger mt-4" *ngIf="error" role="alert">
+                    {{ error }}
+                </div>
+            </form>
+        </div>
+    </mat-tab>
+    <mat-tab label="Teams List" (click)="getAllTeams()"> 
+        <table mat-table [dataSource]="allTeams" class="mat-elevation-z8" style="width: 100%; height: 100%;">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="maxBudget">
+              <th mat-header-cell *matHeaderCellDef> Max Budget </th>
+              <td mat-cell *matCellDef="let element"> {{element.maxBudget}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element"><button class="btn btn-info" (click)="openTeamDetails(element.name)">Show Team </button></td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="teamDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: teamDisplayedColumns;"></tr>
+          </table>
+          
+    </mat-tab>
+    <mat-tab label="Players List" (click)="getAllPlayers()"> 
+        <table mat-table [dataSource]="allPlayers" class="mat-elevation-z8" style="width: 100%; height: 100%;">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="team">
+                <th mat-header-cell *matHeaderCellDef> Team </th>
+                <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+            </ng-container>
+            <ng-container matColumnDef="biddingBudget">
+              <th mat-header-cell *matHeaderCellDef> Bidding Budget </th>
+              <td mat-cell *matCellDef="let element"> {{element.biddingBudget}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element"> Show Team </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="playersDisplayedColoumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: playersDisplayedColoumns;"></tr>
+          </table>
+    </mat-tab>
+  </mat-tab-group>
